@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Poles Of Difference.unity
+  isLoaded: 1
+  isActive: 1
