@@ -66,6 +66,7 @@ public class FiveZeroOne : MonoBehaviour
 
     void Awake()
     {
+        BruhSFX2.volume = 0.6f;
         moduleId = moduleIdCounter++;
         BigText.text = "";
         if (Boss.GetIgnoredModules(Module, Ignored) != null)
@@ -219,8 +220,7 @@ public class FiveZeroOne : MonoBehaviour
             StopCoroutine(SuccessfulSafety());
             BigText.text = "";
             BigText.characterSize = 1f;
-            BruhSFX2.clip = SoundEffex[0];
-            BruhSFX2.Play();
+            BruhSFX2.PlayOneShot(SoundEffex[0]);
             Holding = true;
         }
     }
@@ -235,8 +235,7 @@ public class FiveZeroOne : MonoBehaviour
             {
                 HoldLength = 1000;
                 BigText.characterSize = 0.7f;
-                BruhSFX2.clip = SoundEffex[3];
-                BruhSFX2.Play();
+                BruhSFX2.PlayOneShot(SoundEffex[3]);
                 BigText.text = "NOT";
                 BigText.text += System.Environment.NewLine + "BAD";
                 BigText.text += System.Environment.NewLine + "KID";
@@ -263,17 +262,16 @@ public class FiveZeroOne : MonoBehaviour
             else if (SafeRelease == false)
             {
                 HoldLength = 0;
-                BruhSFX2.clip = SoundEffex[4];
-                BruhSFX2.Play();
+                BruhSFX2.PlayOneShot(SoundEffex[4]);
                 BigText.text = "";
                 Module.HandleStrike();
                 Debug.LogFormat("[501 #{0}] You released on an invalid number. Strike.", moduleId);
             }
             else if (SafeRelease == true)
             {
+                HoldLength = 0;
                 Debug.LogFormat("[501 #{0}] You released when the module was blank, cancelling submission.", moduleId);
-                BruhSFX2.clip = SoundEffex[1];
-                BruhSFX2.Play();
+                BruhSFX2.PlayOneShot(SoundEffex[1]);
                 StartCoroutine(SuccessfulSafety());
             }
         }
@@ -283,27 +281,29 @@ public class FiveZeroOne : MonoBehaviour
     IEnumerator INeedThisForStartup()
     {
         yield return new WaitForSeconds(0.6f);
-        BruhSFX2.clip = SoundEffex[5];
-        BruhSFX2.Play();
+        BruhSFX2.PlayOneShot(SoundEffex[5]);
     }
 
     IEnumerator INeedThisToSpaceOutSoundsOnWarioware()
     {
         NoHolding = true;
         HoldLength = 19;
-        yield return new WaitForSeconds(1.7f);
-        if (Stage % 10 == 0 && Stage <= 100)
+        while (BruhSFX2.isPlaying)
+            yield return new WaitForSeconds(0.01f);
+        if (Stage % 10 == 0 && Speed < 10)
         {
             BruhSFX2.PlayOneShot(Faster);
+            Debug.LogFormat("[42 #{0} Faster!", moduleId);
+            yield return new WaitForSeconds(0.6f / (1+(0.1f*Speed)));
             Speed++;
-            yield return new WaitForSeconds(0.6f);
             BigText.characterSize = 0.7f;
             BigText.text = "SPE" + System.Environment.NewLine + "ED " + System.Environment.NewLine + "UP!";
-            for (int i=0; i<28; i++)
+            while (BruhSFX2.isPlaying)
             {
                 BigText.color = RandomColors[RDM.Range(0, 6)];
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.1f / (1+(0.1f*Speed)));
             }
+            BruhSFX2.pitch = BruhSFX2.pitch + 0.1f;
             BigText.characterSize = 1f;
             BigText.text = "";
         }
@@ -312,24 +312,26 @@ public class FiveZeroOne : MonoBehaviour
         BigText.characterSize = 1f;
         BigText.text = (Stage - 1).ToString();
         BigText.color = RandomColors[RDM.Range(0, 6)];
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f / (1+(0.1f*Speed)));
         BigText.text = Stage.ToString();
-        yield return new WaitForSeconds(1.2f);
+        while (BruhSFX2.isPlaying)
+            yield return new WaitForSeconds(0.01f);
         BigText.text = "";
         NoHolding = false;
     }
 
     IEnumerator WowYouSolvedIt()
     {
+        BruhSFX2.volume = 0.6f;
         ModuleSolved = true;
         BigText.color = RandomColors[4];
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.1f / (1 + (0.1f * Speed)));
         BigText.color = RandomColors[5];
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.2f / (1 + (0.1f * Speed)));
         BigText.color = RandomColors[0];
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.2f / (1 + (0.1f * Speed)));
         BigText.color = RandomColors[2];
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.2f / (1 + (0.1f * Speed)));
         BigText.color = RandomColors[1];
     }
 
@@ -546,8 +548,8 @@ public class FiveZeroOne : MonoBehaviour
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
-            BruhSFX2.clip = SoundEffex[2];
-            BruhSFX2.Play();
+            
+            BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
         else if (HoldLength == 105 - (6*Speed))
         {
@@ -567,8 +569,8 @@ public class FiveZeroOne : MonoBehaviour
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
-            BruhSFX2.clip = SoundEffex[2];
-            BruhSFX2.Play();
+            
+            BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
         else if (HoldLength == 150 - (9*Speed))
         {
@@ -588,8 +590,8 @@ public class FiveZeroOne : MonoBehaviour
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
-            BruhSFX2.clip = SoundEffex[2];
-            BruhSFX2.Play();
+            
+            BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
         else if (HoldLength == 195 - (12*Speed))
         {
@@ -609,8 +611,8 @@ public class FiveZeroOne : MonoBehaviour
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
-            BruhSFX2.clip = SoundEffex[2];
-            BruhSFX2.Play();
+            
+            BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
         else if (HoldLength == 240 - (15*Speed))
         {
@@ -630,8 +632,8 @@ public class FiveZeroOne : MonoBehaviour
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
-            BruhSFX2.clip = SoundEffex[2];
-            BruhSFX2.Play();
+            
+            BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
         else if (HoldLength == 285 - (18*Speed))
         {
@@ -651,8 +653,8 @@ public class FiveZeroOne : MonoBehaviour
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
-            BruhSFX2.clip = SoundEffex[2];
-            BruhSFX2.Play();
+            
+            BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
         else if (HoldLength == 330 - (21*Speed))
         {
@@ -672,8 +674,8 @@ public class FiveZeroOne : MonoBehaviour
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
-            BruhSFX2.clip = SoundEffex[2];
-            BruhSFX2.Play();
+            
+            BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
         else if (HoldLength == 375 - (24*Speed))
         {
@@ -693,8 +695,8 @@ public class FiveZeroOne : MonoBehaviour
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
-            BruhSFX2.clip = SoundEffex[2];
-            BruhSFX2.Play();
+            
+            BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
         else if (HoldLength == 420 - (27*Speed))
         {
@@ -714,8 +716,8 @@ public class FiveZeroOne : MonoBehaviour
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
-            BruhSFX2.clip = SoundEffex[2];
-            BruhSFX2.Play();
+            
+            BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
         else if (HoldLength == 465 - (30*Speed))
         {
@@ -735,21 +737,22 @@ public class FiveZeroOne : MonoBehaviour
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
-            BruhSFX2.clip = SoundEffex[2];
-            BruhSFX2.Play();
+            
+            BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
         else if (HoldLength == 510 - (33*Speed))
         {
-            BruhSFX2.clip = SoundEffex[2];
+            
             CurrentNumber = 11;
-            BruhSFX2.Play(); BigText.text = "";
+            BruhSFX2.PlayOneShot(SoundEffex[2]);
+            BigText.text = "";
             Solveable = false;
             SafeRelease = true;
             HoldLength = 15;
         }
     }
 #pragma warning disable 414 //TWITCH PLAYYYYYYYYS
-    private readonly string TwitchHelpMessage = @"!{0} hold (Starts the number cycle) | !{0} release [1-11] (Releases at the specified number (11 is blank)) | !{0} quiet (Disables sound)";
+    private readonly string TwitchHelpMessage = @"!{0} hold (Starts the number cycle) | !{0} release [1-11] (Releases at the specified number (11 is blank)) | !{0} speedup (Initiates Speed Up, only available on stage 0) | !{0} quiet (Disables sound)";
 #pragma warning restore 414
     IEnumerator ProcessTwitchCommand(string command)
     {
