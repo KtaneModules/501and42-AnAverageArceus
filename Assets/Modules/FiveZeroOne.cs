@@ -395,8 +395,8 @@ public class FiveZeroOne : MonoBehaviour
                 }
             }
             if (Stage < 100)
-                GarunteedCorrect = RDM.Range(0, 100 - Stage);
-            if (GarunteedCorrect == 0)
+                GarunteedCorrect = RDM.Range(0, 100);
+            if (GarunteedCorrect <= (0+Stage))
                 NumberCycle1 = 501;
             else
                 NumberCycle1 = RDM.Range(0, 1000);
