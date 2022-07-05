@@ -631,6 +631,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2fbea383832da884d959c2c6d5e5e76f, type: 3}
   - {fileID: 8300000, guid: f65606378acab684dbb0dc74585dc3c6, type: 3}
   Faster: {fileID: 8300000, guid: 57871e2eeb950ba45b5b3091a2373ce9, type: 3}
+  SevenTwentySeven:
+  - {fileID: 8300000, guid: b3656f7a55d3416469b5148652e505d5, type: 3}
+  - {fileID: 8300000, guid: d38f38f9299fe734c8729ca97a5f5ab8, type: 3}
+  - {fileID: 8300000, guid: 976c3771da7587d4d85cc8e15fad2416, type: 3}
 --- !u!114 &114172515426415956
 MonoBehaviour:
   m_ObjectHideFlags: 1

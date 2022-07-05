@@ -60,6 +60,7 @@ public class FourtyTwo : MonoBehaviour
     int moduleId;
     private bool ModuleSolved;
 
+    public AudioClip[] SixtyNine; //Startup, Strike, Solve
     void Awake()
     {
         BruhSFX2.volume = 0.6f;
