@@ -60,7 +60,34 @@ public class FourtyTwo : MonoBehaviour
     int moduleId;
     private bool ModuleSolved;
 
+    //Mod Settings
     public AudioClip[] SixtyNine; //Startup, Strike, Solve
+
+    private bool _aprilFoolsOn, _aprilFoolsChecked;
+    private bool AprilFoolsOn
+    {
+        get
+        {
+            if(!_aprilFoolsChecked)
+            {
+                _aprilFoolsOn = !Application.isEditor && SettingsHelper.ReadSettings(GetComponent<KMModSettings>());
+                _aprilFoolsChecked = true;
+            }
+            return _aprilFoolsOn;
+        }
+    }
+
+    private int CorrectInt
+    {
+        get
+        {
+            if(AprilFoolsOn)
+                return 69;
+            else
+                return 42;
+        }
+    }
+
     void Awake()
     {
         BruhSFX2.volume = 0.6f;
@@ -87,120 +114,120 @@ public class FourtyTwo : MonoBehaviour
                 Debug.LogFormat("[42 #{0}] No stages were able to be generated. Autosolving.", moduleId);
             }
             else
-                Debug.LogFormat("[42 #{0}] Welcome to 42. The maximum amount of stages possible is {1}.", moduleId, MaxStage);
+                Debug.LogFormat("[42 #{0}] Welcome to {2}. The maximum amount of stages possible is {1}.", moduleId, MaxStage, CorrectInt);
         }
         else
         {
             NumberCycle1 = RDM.Range(0, 100); //debug stuff
-            if (NumberCycle1 == 42)
+            if(NumberCycle1 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle2 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle2 == 42)
+                if(NumberCycle2 == CorrectInt)
                 {
                     NumberCycle2 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle2 == 42)
+            else if(NumberCycle2 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle3 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle3 == 42)
+                if(NumberCycle3 == CorrectInt)
                 {
                     NumberCycle3 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle3 == 42)
+            else if(NumberCycle3 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle4 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle4 == 42)
+                if(NumberCycle4 == CorrectInt)
                 {
                     NumberCycle4 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle4 == 42)
+            else if(NumberCycle4 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle5 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle5 == 42)
+                if(NumberCycle5 == CorrectInt)
                 {
                     NumberCycle5 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle5 == 42)
+            else if(NumberCycle5 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle6 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle6 == 42)
+                if(NumberCycle6 == CorrectInt)
                 {
                     NumberCycle6 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle6 == 42)
+            else if(NumberCycle6 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle7 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle7 == 42)
+                if(NumberCycle7 == CorrectInt)
                 {
                     NumberCycle7 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle7 == 42)
+            else if(NumberCycle7 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle8 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle8 == 42)
+                if(NumberCycle8 == CorrectInt)
                 {
                     NumberCycle8 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle8 == 42)
+            else if(NumberCycle8 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle9 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle9 == 42)
+                if(NumberCycle9 == CorrectInt)
                 {
                     NumberCycle9 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle9 == 42)
+            else if(NumberCycle9 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle10 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle10 == 42)
+                if(NumberCycle10 == CorrectInt)
                 {
                     NumberCycle10 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle10 == 42)
+            else if(NumberCycle10 == CorrectInt)
             {
                 Strikeable = true;
             }
@@ -232,12 +259,15 @@ public class FourtyTwo : MonoBehaviour
             {
                 HoldLength = 1000;
                 BigText.characterSize = 0.7f;
-                BruhSFX2.PlayOneShot(SoundEffex[3]);
+                if(AprilFoolsOn)
+                    BruhSFX2.PlayOneShot(SixtyNine[2]);
+                else
+                    BruhSFX2.PlayOneShot(SoundEffex[3]);
                 BigText.text = "NI";
                 BigText.text += System.Environment.NewLine + "CE";
                 Module.HandlePass();
                 ModuleSolved = true;
-                Debug.LogFormat("[42 #{0}] You released on 42 (Or we ran out of stages to generate). Congratulations, you solved the module.", moduleId);
+                Debug.LogFormat("[42 #{0}] You released on {1} (Or we ran out of stages to generate). Congratulations, you solved the module.", moduleId, CorrectInt);
                 StartCoroutine(WowYouSolvedIt());
             }
             else if (CurrentNumber == 6 && Stage == 0)
@@ -257,7 +287,10 @@ public class FourtyTwo : MonoBehaviour
             }
             else if (SafeRelease == false)
             {
-                BruhSFX2.PlayOneShot(SoundEffex[4]);
+                if(AprilFoolsOn)
+                    BruhSFX2.PlayOneShot(SixtyNine[1]);
+                else
+                    BruhSFX2.PlayOneShot(SoundEffex[4]);
                 HoldLength = 0;
                 BigText.text = "";
                 Module.HandleStrike();
@@ -277,7 +310,10 @@ public class FourtyTwo : MonoBehaviour
     IEnumerator INeedThisForStartup()
     {
         yield return new WaitForSeconds(0.6f);
-        BruhSFX2.PlayOneShot(SoundEffex[5]);
+        if(AprilFoolsOn)
+            BruhSFX2.PlayOneShot(SixtyNine[0]);
+        else
+            BruhSFX2.PlayOneShot(SoundEffex[5]);
     }
 
     IEnumerator INeedThisToSpaceOutSoundsOnWarioware()
@@ -337,7 +373,7 @@ public class FourtyTwo : MonoBehaviour
     {
         for (int i = 0; i < 100; i++)
         {
-            BigText.text = "42";
+            BigText.text = CorrectInt.ToString();
             BigText.characterSize = BigText.characterSize - 0.01f;
             yield return new WaitForSeconds(0.01f);
         }
@@ -354,7 +390,7 @@ public class FourtyTwo : MonoBehaviour
             if (Strikeable == true)
             {
                 Module.HandleStrike();
-                Debug.LogFormat("[42 #{0}] The number 42 was present in the previous sequence. Strike.", moduleId);
+                Debug.LogFormat("[42 #{0}] The number {1} was present in the previous sequence. Strike.", moduleId, CorrectInt);
                 Strikeable = false;
                 if (Warioware)
                 {
@@ -383,7 +419,7 @@ public class FourtyTwo : MonoBehaviour
                 }
             }
             NumberCycle1 = RDM.Range(0, 100);
-            if (NumberCycle1 == 42)
+            if(NumberCycle1 == CorrectInt)
             {
                 CorrectNumber = 1;
                 Strikeable = true;
@@ -391,12 +427,12 @@ public class FourtyTwo : MonoBehaviour
             NumberCycle2 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle2 == 42)
+                if(NumberCycle2 == CorrectInt)
                 {
                     NumberCycle2 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle2 == 42)
+            else if(NumberCycle2 == CorrectInt)
             {
                 CorrectNumber = 2;
                 Strikeable = true;
@@ -404,12 +440,12 @@ public class FourtyTwo : MonoBehaviour
             NumberCycle3 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle3 == 42)
+                if(NumberCycle3 == CorrectInt)
                 {
                     NumberCycle3 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle3 == 42)
+            else if(NumberCycle3 == CorrectInt)
             {
                 CorrectNumber = 3;
                 Strikeable = true;
@@ -417,12 +453,12 @@ public class FourtyTwo : MonoBehaviour
             NumberCycle4 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle4 == 42)
+                if(NumberCycle4 == CorrectInt)
                 {
                     NumberCycle4 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle4 == 42)
+            else if(NumberCycle4 == CorrectInt)
             {
                 CorrectNumber = 4;
                 Strikeable = true;
@@ -430,12 +466,12 @@ public class FourtyTwo : MonoBehaviour
             NumberCycle5 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle5 == 42)
+                if(NumberCycle5 == CorrectInt)
                 {
                     NumberCycle5 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle5 == 42)
+            else if(NumberCycle5 == CorrectInt)
             {
                 CorrectNumber = 5;
                 Strikeable = true;
@@ -443,12 +479,12 @@ public class FourtyTwo : MonoBehaviour
             NumberCycle6 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle6 == 42)
+                if(NumberCycle6 == CorrectInt)
                 {
                     NumberCycle6 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle6 == 42)
+            else if(NumberCycle6 == CorrectInt)
             {
                 CorrectNumber = 6;
                 Strikeable = true;
@@ -456,12 +492,12 @@ public class FourtyTwo : MonoBehaviour
             NumberCycle7 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle7 == 42)
+                if(NumberCycle7 == CorrectInt)
                 {
                     NumberCycle7 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle7 == 42)
+            else if(NumberCycle7 == CorrectInt)
             {
                 CorrectNumber = 7;
                 Strikeable = true;
@@ -469,12 +505,12 @@ public class FourtyTwo : MonoBehaviour
             NumberCycle8 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle8 == 42)
+                if(NumberCycle8 == CorrectInt)
                 {
                     NumberCycle8 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle8 == 42)
+            else if(NumberCycle8 == CorrectInt)
             {
                 CorrectNumber = 8;
                 Strikeable = true;
@@ -482,12 +518,12 @@ public class FourtyTwo : MonoBehaviour
             NumberCycle9 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle9 == 42)
+                if(NumberCycle9 == CorrectInt)
                 {
                     NumberCycle9 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle9 == 42)
+            else if(NumberCycle9 == CorrectInt)
             {
                 CorrectNumber = 9;
                 Strikeable = true;
@@ -495,12 +531,12 @@ public class FourtyTwo : MonoBehaviour
             NumberCycle10 = RDM.Range(0, 100);
             if (Strikeable == true)
             {
-                if (NumberCycle10 == 42)
+                if(NumberCycle10 == CorrectInt)
                 {
                     NumberCycle10 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle10 == 42)
+            else if(NumberCycle10 == CorrectInt)
             {
                 CorrectNumber = 10;
                 Strikeable = true;
@@ -520,7 +556,7 @@ public class FourtyTwo : MonoBehaviour
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle1 == 42)
+            if(NumberCycle1 == CorrectInt)
             {
                 Solveable = true;
             }
@@ -536,7 +572,7 @@ public class FourtyTwo : MonoBehaviour
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle2 == 42)
+            if(NumberCycle2 == CorrectInt)
             {
                 Solveable = true;
             }
@@ -552,7 +588,7 @@ public class FourtyTwo : MonoBehaviour
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle3 == 42)
+            if(NumberCycle3 == CorrectInt)
             {
                 Solveable = true;
             }
@@ -568,7 +604,7 @@ public class FourtyTwo : MonoBehaviour
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle4 == 42)
+            if(NumberCycle4 == CorrectInt)
             {
                 Solveable = true;
             }
@@ -584,7 +620,7 @@ public class FourtyTwo : MonoBehaviour
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle5 == 42)
+            if(NumberCycle5 == CorrectInt)
             {
                 Solveable = true;
             }
@@ -600,7 +636,7 @@ public class FourtyTwo : MonoBehaviour
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle6 == 42)
+            if(NumberCycle6 == CorrectInt)
             {
                 Solveable = true;
             }
@@ -616,7 +652,7 @@ public class FourtyTwo : MonoBehaviour
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle7 == 42)
+            if(NumberCycle7 == CorrectInt)
             {
                 Solveable = true;
             }
@@ -632,7 +668,7 @@ public class FourtyTwo : MonoBehaviour
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle8 == 42)
+            if(NumberCycle8 == CorrectInt)
             {
                 Solveable = true;
             }
@@ -648,7 +684,7 @@ public class FourtyTwo : MonoBehaviour
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle9 == 42)
+            if(NumberCycle9 == CorrectInt)
             {
                 Solveable = true;
             }
@@ -664,7 +700,7 @@ public class FourtyTwo : MonoBehaviour
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle10 == 42)
+            if(NumberCycle10 == CorrectInt)
             {
                 Solveable = true;
             }
