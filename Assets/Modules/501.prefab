@@ -735,8 +735,8 @@ MonoBehaviour:
   m_Script: {fileID: -289456416, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Settings: 501Settings
-  SettingsPath: 501
+  Settings: 
+  SettingsPath: 
 --- !u!114 &114687085741488856
 MonoBehaviour:
   m_ObjectHideFlags: 1
