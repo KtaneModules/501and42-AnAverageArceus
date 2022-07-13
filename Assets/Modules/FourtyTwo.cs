@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using KModkit;
 using System.Text.RegularExpressions;
 using RDM = UnityEngine.Random;
 
@@ -60,24 +58,52 @@ public class FourtyTwo : MonoBehaviour
     int moduleId;
     private bool ModuleSolved;
 
+    //Mod Settings
+    public AudioClip[] SixtyNine; //Startup, Strike, Solve
+
+    private bool _aprilFoolsOn, _aprilFoolsChecked;
+    private bool AprilFoolsOn
+    {
+        get
+        {
+            if(!_aprilFoolsChecked)
+            {
+                _aprilFoolsOn = !Application.isEditor && SettingsHelper.ReadSettings(GetComponent<KMModSettings>());
+                _aprilFoolsChecked = true;
+            }
+            return _aprilFoolsOn;
+        }
+    }
+
+    private int CorrectInt
+    {
+        get
+        {
+            if(AprilFoolsOn)
+                return 69;
+            else
+                return 42;
+        }
+    }
+
     void Awake()
     {
         BruhSFX2.volume = 0.6f;
         moduleId = moduleIdCounter++;
         BigText.text = "";
-        if (Boss.GetIgnoredModules(Module, Ignored) != null)
+        if(Boss.GetIgnoredModules(Module, Ignored) != null)
             Ignored = Boss.GetIgnoredModules(Module, Ignored);
-            Button.OnInteract += delegate () { Pressed(); return false; };
-            Button.OnInteractEnded += delegate () { Unpressed(); };
+        Button.OnInteract += delegate () { Pressed(); return false; };
+        Button.OnInteractEnded += delegate () { Unpressed(); };
     }
 
     void Start()
     {
         StartCoroutine(INeedThisForStartup());
         MaxStage = Bomb.GetSolvableModuleNames().Where(a => !Ignored.Contains(a)).Count();
-        if (!Application.isEditor)
+        if(!Application.isEditor)
         {
-            if (MaxStage == Stage)
+            if(MaxStage == Stage)
             {
                 Module.HandlePass();
                 BigText.text = "AY";
@@ -86,120 +112,120 @@ public class FourtyTwo : MonoBehaviour
                 Debug.LogFormat("[42 #{0}] No stages were able to be generated. Autosolving.", moduleId);
             }
             else
-                Debug.LogFormat("[42 #{0}] Welcome to 42. The maximum amount of stages possible is {1}.", moduleId, MaxStage);
+                Debug.LogFormat("[42 #{0}] Welcome to {2}. The maximum amount of stages possible is {1}.", moduleId, MaxStage, CorrectInt);
         }
         else
         {
             NumberCycle1 = RDM.Range(0, 100); //debug stuff
-            if (NumberCycle1 == 42)
+            if(NumberCycle1 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle2 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle2 == 42)
+                if(NumberCycle2 == CorrectInt)
                 {
                     NumberCycle2 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle2 == 42)
+            else if(NumberCycle2 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle3 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle3 == 42)
+                if(NumberCycle3 == CorrectInt)
                 {
                     NumberCycle3 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle3 == 42)
+            else if(NumberCycle3 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle4 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle4 == 42)
+                if(NumberCycle4 == CorrectInt)
                 {
                     NumberCycle4 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle4 == 42)
+            else if(NumberCycle4 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle5 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle5 == 42)
+                if(NumberCycle5 == CorrectInt)
                 {
                     NumberCycle5 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle5 == 42)
+            else if(NumberCycle5 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle6 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle6 == 42)
+                if(NumberCycle6 == CorrectInt)
                 {
                     NumberCycle6 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle6 == 42)
+            else if(NumberCycle6 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle7 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle7 == 42)
+                if(NumberCycle7 == CorrectInt)
                 {
                     NumberCycle7 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle7 == 42)
+            else if(NumberCycle7 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle8 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle8 == 42)
+                if(NumberCycle8 == CorrectInt)
                 {
                     NumberCycle8 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle8 == 42)
+            else if(NumberCycle8 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle9 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle9 == 42)
+                if(NumberCycle9 == CorrectInt)
                 {
                     NumberCycle9 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle9 == 42)
+            else if(NumberCycle9 == CorrectInt)
             {
                 Strikeable = true;
             }
             NumberCycle10 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle10 == 42)
+                if(NumberCycle10 == CorrectInt)
                 {
                     NumberCycle10 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle10 == 42)
+            else if(NumberCycle10 == CorrectInt)
             {
                 Strikeable = true;
             }
@@ -209,7 +235,7 @@ public class FourtyTwo : MonoBehaviour
 
     void Pressed()
     {
-        if (!ModuleSolved && !NoHolding)
+        if(!ModuleSolved && !NoHolding)
         {
             Button.AddInteractionPunch();
             StopCoroutine(SuccessfulSafety());
@@ -222,24 +248,27 @@ public class FourtyTwo : MonoBehaviour
 
     void Unpressed()
     {
-        if (Stage == MaxStage)
+        if(Stage == MaxStage)
             Solveable = true;
-        if (!ModuleSolved && Holding)
+        if(!ModuleSolved && Holding)
         {
             BigText.text = "";
-            if (Solveable == true)
+            if(Solveable == true)
             {
                 HoldLength = 1000;
                 BigText.characterSize = 0.7f;
-                BruhSFX2.PlayOneShot(SoundEffex[3]);
+                if(AprilFoolsOn)
+                    BruhSFX2.PlayOneShot(SixtyNine[2]);
+                else
+                    BruhSFX2.PlayOneShot(SoundEffex[3]);
                 BigText.text = "NI";
                 BigText.text += System.Environment.NewLine + "CE";
                 Module.HandlePass();
                 ModuleSolved = true;
-                Debug.LogFormat("[42 #{0}] You released on 42 (Or we ran out of stages to generate). Congratulations, you solved the module.", moduleId);
+                Debug.LogFormat("[42 #{0}] You released on {1} (Or we ran out of stages to generate). Congratulations, you solved the module.", moduleId, CorrectInt);
                 StartCoroutine(WowYouSolvedIt());
             }
-            else if (CurrentNumber == 6 && Stage == 0)
+            else if(CurrentNumber == 6 && Stage == 0)
             {
                 Warioware = true;
                 BigText.characterSize = 0.7f;
@@ -248,21 +277,24 @@ public class FourtyTwo : MonoBehaviour
                 Debug.LogFormat("[42 #{0}] Speedup mode activated!", moduleId);
                 BruhSFX2.PlayOneShot(Faster);
             }
-            else if (CurrentNumber == 1 && Stage == 0)
+            else if(CurrentNumber == 1 && Stage == 0)
             {
                 BruhSFX2.volume = 0f;
                 BigText.text = "SH";
                 HoldLength = 14;
             }
-            else if (SafeRelease == false)
+            else if(SafeRelease == false)
             {
-                BruhSFX2.PlayOneShot(SoundEffex[4]);
+                if(AprilFoolsOn)
+                    BruhSFX2.PlayOneShot(SixtyNine[1]);
+                else
+                    BruhSFX2.PlayOneShot(SoundEffex[4]);
                 HoldLength = 0;
                 BigText.text = "";
                 Module.HandleStrike();
                 Debug.LogFormat("[42 #{0}] You released on an invalid number. Strike.", moduleId);
             }
-            else if (SafeRelease == true)
+            else if(SafeRelease == true)
             {
                 HoldLength = 0;
                 Debug.LogFormat("[42 #{0}] You released when the module was blank, cancelling submission.", moduleId);
@@ -276,16 +308,19 @@ public class FourtyTwo : MonoBehaviour
     IEnumerator INeedThisForStartup()
     {
         yield return new WaitForSeconds(0.6f);
-        BruhSFX2.PlayOneShot(SoundEffex[5]);
+        if(AprilFoolsOn)
+            BruhSFX2.PlayOneShot(SixtyNine[0]);
+        else
+            BruhSFX2.PlayOneShot(SoundEffex[5]);
     }
 
     IEnumerator INeedThisToSpaceOutSoundsOnWarioware()
     {
         NoHolding = true;
         HoldLength = 19;
-        while (BruhSFX2.isPlaying)
+        while(BruhSFX2.isPlaying)
             yield return new WaitForSeconds(0.01f);
-        if (Stage % 10 == 0 && Speed < 10)
+        if(Stage % 10 == 0 && Speed < 10)
         {
             BruhSFX2.PlayOneShot(Faster);
             Debug.LogFormat("[42 #{0}] Faster!", moduleId);
@@ -293,7 +328,7 @@ public class FourtyTwo : MonoBehaviour
             Speed++;
             BigText.characterSize = 0.5f;
             BigText.text = "SPE" + System.Environment.NewLine + "ED " + System.Environment.NewLine + "UP!";
-            while (BruhSFX2.isPlaying)
+            while(BruhSFX2.isPlaying)
             {
                 BigText.color = RandomColors[RDM.Range(0, 6)];
                 yield return new WaitForSeconds(0.1f / (1 + (0.1f * Speed)));
@@ -305,13 +340,13 @@ public class FourtyTwo : MonoBehaviour
         int index = RDM.Range(0, 2);
         BruhSFX2.PlayOneShot(Begin[index]);
         BigText.characterSize = 1f;
-        if (Stage >= 100)
+        if(Stage >= 100)
             BigText.characterSize = 0.7f;
         BigText.text = (Stage - 1).ToString();
         BigText.color = RandomColors[RDM.Range(0, 6)];
         yield return new WaitForSeconds(0.5f / (1 + (0.1f * Speed)));
         BigText.text = Stage.ToString();
-        while (BruhSFX2.isPlaying)
+        while(BruhSFX2.isPlaying)
             yield return new WaitForSeconds(0.01f);
         BigText.text = "";
         NoHolding = false;
@@ -334,9 +369,9 @@ public class FourtyTwo : MonoBehaviour
 
     IEnumerator SuccessfulSafety()
     {
-        for (int i = 0; i < 100; i++)
+        for(int i = 0; i < 100; i++)
         {
-            BigText.text = "42";
+            BigText.text = CorrectInt.ToString();
             BigText.characterSize = BigText.characterSize - 0.01f;
             yield return new WaitForSeconds(0.01f);
         }
@@ -345,17 +380,17 @@ public class FourtyTwo : MonoBehaviour
 
     void FixedUpdate() //Needs to be fixed to prevent insane framerates from breaking the module
     {
-        if (Stage < Bomb.GetSolvedModuleNames().Where(a => !Ignored.Contains(a)).Count() && !ModuleSolved)
+        if(Stage < Bomb.GetSolvedModuleNames().Where(a => !Ignored.Contains(a)).Count() && !ModuleSolved)
         {
             Stage++;
-            if (Stage == MaxStage)
+            if(Stage == MaxStage)
                 Debug.LogFormat("[42 #{0}] All available modules have been solved. Please ignore any logging that follows this.", moduleId);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
                 Module.HandleStrike();
-                Debug.LogFormat("[42 #{0}] The number 42 was present in the previous sequence. Strike.", moduleId);
+                Debug.LogFormat("[42 #{0}] The number {1} was present in the previous sequence. Strike.", moduleId, CorrectInt);
                 Strikeable = false;
-                if (Warioware)
+                if(Warioware)
                 {
                     int index = RDM.Range(0, 2);
                     BruhSFX2.PlayOneShot(Incorrect[index]);
@@ -369,7 +404,7 @@ public class FourtyTwo : MonoBehaviour
             }
             else
             {
-                if (Warioware)
+                if(Warioware)
                 {
                     int index = RDM.Range(0, 2);
                     BruhSFX2.PlayOneShot(Correct[index]);
@@ -382,295 +417,295 @@ public class FourtyTwo : MonoBehaviour
                 }
             }
             NumberCycle1 = RDM.Range(0, 100);
-            if (NumberCycle1 == 42)
+            if(NumberCycle1 == CorrectInt)
             {
                 CorrectNumber = 1;
                 Strikeable = true;
             }
             NumberCycle2 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle2 == 42)
+                if(NumberCycle2 == CorrectInt)
                 {
                     NumberCycle2 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle2 == 42)
+            else if(NumberCycle2 == CorrectInt)
             {
                 CorrectNumber = 2;
                 Strikeable = true;
             }
             NumberCycle3 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle3 == 42)
+                if(NumberCycle3 == CorrectInt)
                 {
                     NumberCycle3 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle3 == 42)
+            else if(NumberCycle3 == CorrectInt)
             {
                 CorrectNumber = 3;
                 Strikeable = true;
             }
             NumberCycle4 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle4 == 42)
+                if(NumberCycle4 == CorrectInt)
                 {
                     NumberCycle4 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle4 == 42)
+            else if(NumberCycle4 == CorrectInt)
             {
                 CorrectNumber = 4;
                 Strikeable = true;
             }
             NumberCycle5 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle5 == 42)
+                if(NumberCycle5 == CorrectInt)
                 {
                     NumberCycle5 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle5 == 42)
+            else if(NumberCycle5 == CorrectInt)
             {
                 CorrectNumber = 5;
                 Strikeable = true;
             }
             NumberCycle6 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle6 == 42)
+                if(NumberCycle6 == CorrectInt)
                 {
                     NumberCycle6 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle6 == 42)
+            else if(NumberCycle6 == CorrectInt)
             {
                 CorrectNumber = 6;
                 Strikeable = true;
             }
             NumberCycle7 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle7 == 42)
+                if(NumberCycle7 == CorrectInt)
                 {
                     NumberCycle7 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle7 == 42)
+            else if(NumberCycle7 == CorrectInt)
             {
                 CorrectNumber = 7;
                 Strikeable = true;
             }
             NumberCycle8 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle8 == 42)
+                if(NumberCycle8 == CorrectInt)
                 {
                     NumberCycle8 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle8 == 42)
+            else if(NumberCycle8 == CorrectInt)
             {
                 CorrectNumber = 8;
                 Strikeable = true;
             }
             NumberCycle9 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle9 == 42)
+                if(NumberCycle9 == CorrectInt)
                 {
                     NumberCycle9 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle9 == 42)
+            else if(NumberCycle9 == CorrectInt)
             {
                 CorrectNumber = 9;
                 Strikeable = true;
             }
             NumberCycle10 = RDM.Range(0, 100);
-            if (Strikeable == true)
+            if(Strikeable == true)
             {
-                if (NumberCycle10 == 42)
+                if(NumberCycle10 == CorrectInt)
                 {
                     NumberCycle10 = RDM.Range(10, 40);
                 }
             }
-            else if (NumberCycle10 == 42)
+            else if(NumberCycle10 == CorrectInt)
             {
                 CorrectNumber = 10;
                 Strikeable = true;
             }
             Debug.LogFormat("[42 #{0}] Stage {11}: The sequence of numbers generated is: {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}.", moduleId, NumberCycle1, NumberCycle2, NumberCycle3, NumberCycle4, NumberCycle5, NumberCycle6, NumberCycle7, NumberCycle8, NumberCycle9, NumberCycle10, Stage);
         }
-        if (!ModuleSolved)
-            if (Holding && !NoHolding)
+        if(!ModuleSolved)
+            if(Holding && !NoHolding)
                 HoldLength++;
-        if (HoldLength == 60 - (3*Speed))
+        if(HoldLength == 60 - (3 * Speed))
         {
             SafeRelease = false;
             Solveable = false;
             BigText.text = NumberCycle1.ToString();
             CurrentNumber = 1;
-            if (NumberCycle1 < 10)
+            if(NumberCycle1 < 10)
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle1 == 42)
+            if(NumberCycle1 == CorrectInt)
             {
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
             BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
-        else if (HoldLength == 105 - (6*Speed))
+        else if(HoldLength == 105 - (6 * Speed))
         {
             Solveable = false;
             BigText.text = NumberCycle2.ToString();
             CurrentNumber = 2;
-            if (NumberCycle2 < 10)
+            if(NumberCycle2 < 10)
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle2 == 42)
+            if(NumberCycle2 == CorrectInt)
             {
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
             BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
-        else if (HoldLength == 150 - (9*Speed))
+        else if(HoldLength == 150 - (9 * Speed))
         {
             Solveable = false;
             BigText.text = NumberCycle3.ToString();
             CurrentNumber = 3;
-            if (NumberCycle3 < 10)
+            if(NumberCycle3 < 10)
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle3 == 42)
+            if(NumberCycle3 == CorrectInt)
             {
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
             BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
-        else if (HoldLength == 195 - (12*Speed))
+        else if(HoldLength == 195 - (12 * Speed))
         {
             Solveable = false;
             BigText.text = NumberCycle4.ToString();
             CurrentNumber = 4;
-            if (NumberCycle4 < 10)
+            if(NumberCycle4 < 10)
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle4 == 42)
+            if(NumberCycle4 == CorrectInt)
             {
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
             BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
-        else if (HoldLength == 240 - (15*Speed))
+        else if(HoldLength == 240 - (15 * Speed))
         {
             Solveable = false;
             BigText.text = NumberCycle5.ToString();
             CurrentNumber = 5;
-            if (NumberCycle5 < 10)
+            if(NumberCycle5 < 10)
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle5 == 42)
+            if(NumberCycle5 == CorrectInt)
             {
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
             BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
-        else if (HoldLength == 285 - (18*Speed))
+        else if(HoldLength == 285 - (18 * Speed))
         {
             Solveable = false;
             BigText.text = NumberCycle6.ToString();
             CurrentNumber = 6;
-            if (NumberCycle6 < 10)
+            if(NumberCycle6 < 10)
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle6 == 42)
+            if(NumberCycle6 == CorrectInt)
             {
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
             BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
-        else if (HoldLength == 330 - (21*Speed))
+        else if(HoldLength == 330 - (21 * Speed))
         {
             Solveable = false;
             BigText.text = NumberCycle7.ToString();
             CurrentNumber = 7;
-            if (NumberCycle7 < 10)
+            if(NumberCycle7 < 10)
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle7 == 42)
+            if(NumberCycle7 == CorrectInt)
             {
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
             BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
-        else if (HoldLength == 375 - (24*Speed))
+        else if(HoldLength == 375 - (24 * Speed))
         {
             Solveable = false;
             BigText.text = NumberCycle8.ToString();
             CurrentNumber = 8;
-            if (NumberCycle8 < 10)
+            if(NumberCycle8 < 10)
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle8 == 42)
+            if(NumberCycle8 == CorrectInt)
             {
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
             BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
-        else if (HoldLength == 420 - (27*Speed))
+        else if(HoldLength == 420 - (27 * Speed))
         {
             Solveable = false;
             BigText.text = NumberCycle9.ToString();
             CurrentNumber = 9;
-            if (NumberCycle9 < 10)
+            if(NumberCycle9 < 10)
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle9 == 42)
+            if(NumberCycle9 == CorrectInt)
             {
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
             BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
-        else if (HoldLength == 465 - (30*Speed))
+        else if(HoldLength == 465 - (30 * Speed))
         {
             Solveable = false;
             BigText.text = NumberCycle10.ToString();
             CurrentNumber = 10;
-            if (NumberCycle10 < 10)
+            if(NumberCycle10 < 10)
             {
                 BigText.text = "0" + BigText.text;
             }
-            if (NumberCycle10 == 42)
+            if(NumberCycle10 == CorrectInt)
             {
                 Solveable = true;
             }
             BigText.color = RandomColors[RDM.Range(0, 6)];
             BruhSFX2.PlayOneShot(SoundEffex[2]);
         }
-        else if (HoldLength == 510 - (33*Speed))
+        else if(HoldLength == 510 - (33 * Speed))
         {
             CurrentNumber = 11;
             BruhSFX2.PlayOneShot(SoundEffex[2]);
@@ -686,65 +721,65 @@ public class FourtyTwo : MonoBehaviour
     IEnumerator ProcessTwitchCommand(string command)
     {
         string[] HellYeah = command.Split(' ');
-        if (Regex.IsMatch(HellYeah[0], @"^\s*hold\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+        if(Regex.IsMatch(HellYeah[0], @"^\s*hold\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
         {
             yield return null;
 
-            if (HellYeah.Length != 1)
+            if(HellYeah.Length != 1)
                 yield return "sendtochaterror That's not how you hold.";
-            if (Holding == true)
+            if(Holding == true)
                 yield return "sendtochaterror How am I supposed to hold this thing twice? FailFish";
             else
                 Button.OnInteract();
         }
-        else if (Regex.IsMatch(HellYeah[0], @"^\s*release\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+        else if(Regex.IsMatch(HellYeah[0], @"^\s*release\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
         {
             yield return null;
 
-            if (HellYeah.Length < 2)
+            if(HellYeah.Length < 2)
                 yield return "sendtochaterror You really shouldn't do that.";
-            else if (HellYeah.Length > 2)
+            else if(HellYeah.Length > 2)
                 yield return "sendtochaterror I'm getting mixed signals here. Give me a single number to release at.";
-            else if (HellYeah[1] == "69" | HellYeah[1] == "420")
+            else if(HellYeah[1] == "69" | HellYeah[1] == "420")
                 yield return "sendtochaterror Not funny.";
-            else if (HellYeah[1] == "0")
+            else if(HellYeah[1] == "0")
                 yield return "sendtochaterror The release command is 11, not 0.";
-            else if (!IsValid(HellYeah.ElementAt(1)))
+            else if(!IsValid(HellYeah.ElementAt(1)))
                 yield return "sendtochaterror Hey, make sure your number is between 1 and 11 so I can release!";
-            else if (!Holding)
+            else if(!Holding)
                 yield return "sendtochaterror ...I'm not holding. I can't release if I'm not holding.";
             else
             {
                 yield return new WaitWhile(() => HellYeah[1] != CurrentNumber.ToString());
                 yield return new WaitForSeconds(0.025f);
-                if (CurrentNumber == CorrectNumber || Stage >= MaxStage)
+                if(CurrentNumber == CorrectNumber || Stage >= MaxStage)
                 {
                     yield return "awardpointsonsolve " + Math.Max(Mathf.CeilToInt(Stage * TPScoring + 0.5f), 1).ToString();
                     yield return "solve";
                 }
-                else if (HellYeah[1] == "11")
+                else if(HellYeah[1] == "11")
                 {
                     SafeRelease = true;
                 }
                 Button.OnInteractEnded();
             }
         }
-        else if (Regex.IsMatch(HellYeah[0], @"^\s*speedup\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+        else if(Regex.IsMatch(HellYeah[0], @"^\s*speedup\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
         {
             yield return null;
-            if (Stage != 0)
+            if(Stage != 0)
                 yield return "sendtochaterror Sorry, it's too late to enable Speed Up mode.";
             else
             {
-            Warioware = true;
-            BigText.characterSize = 0.7f;
-            BigText.text = "GL" + System.Environment.NewLine + "HF";
-            HoldLength = 16;
-            Debug.LogFormat("[42 #{0}] Speedup mode activated!", moduleId);
-            BruhSFX2.PlayOneShot(Faster);
+                Warioware = true;
+                BigText.characterSize = 0.7f;
+                BigText.text = "GL" + System.Environment.NewLine + "HF";
+                HoldLength = 16;
+                Debug.LogFormat("[42 #{0}] Speedup mode activated!", moduleId);
+                BruhSFX2.PlayOneShot(Faster);
             }
         }
-        else if (Regex.IsMatch(HellYeah[0], @"^\s*quiet\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+        else if(Regex.IsMatch(HellYeah[0], @"^\s*quiet\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
         {
             yield return null;
             BruhSFX2.volume = 0f;

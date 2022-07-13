@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 114028347645608082}
   - component: {fileID: 82280993439008352}
   - component: {fileID: 114118728368581938}
+  - component: {fileID: 114897490024358054}
   m_Layer: 0
   m_Name: 42
   m_TagString: Untagged
@@ -663,6 +664,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2fbea383832da884d959c2c6d5e5e76f, type: 3}
   - {fileID: 8300000, guid: f65606378acab684dbb0dc74585dc3c6, type: 3}
   Faster: {fileID: 8300000, guid: 57871e2eeb950ba45b5b3091a2373ce9, type: 3}
+  SixtyNine:
+  - {fileID: 8300000, guid: b3656f7a55d3416469b5148652e505d5, type: 3}
+  - {fileID: 8300000, guid: d38f38f9299fe734c8729ca97a5f5ab8, type: 3}
+  - {fileID: 8300000, guid: b0b62a4e8ef5edf46ab2a71999d0b346, type: 3}
 --- !u!114 &114292435190832878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -772,6 +777,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
+--- !u!114 &114897490024358054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1273439477801354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -289456416, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Settings: 
+  SettingsPath: 
 --- !u!114 &114956416185753670
 MonoBehaviour:
   m_ObjectHideFlags: 1
